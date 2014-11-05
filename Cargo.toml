@@ -1,0 +1,8 @@
+[package]
+
+name = "ComparatorHeap"
+version = "0.0.1"
+authors = ["rroelke <ryan_roelke@brown.edu>"]
+
+[lib]
+name = "comparatorheap"
