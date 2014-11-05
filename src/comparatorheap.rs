@@ -67,6 +67,13 @@ impl<T> ComparatorHeap<T> {
         self.heap.reserve(n)
     }
 
+    pub fn top<'a>(&'a self) -> Option<&'a T> {
+        match self.heap.top() {
+            None => None,
+            Some(item) => Some(&item.item)
+        }
+    }
+
     pub fn pop(&mut self) -> Option<T> {
         match self.heap.pop() {
             None => None,
