@@ -145,6 +145,15 @@ impl<T> ComparatorHeap<T> {
             item.item
         }).collect()
     }
+
+    /// consumes the ComparatorHeap and returns a vector in sorted
+    /// (ascending) order
+    pub fn into_sorted_vec(self) -> Vec<T> {
+        self.heap.into_sorted_vec().
+                into_iter().map(|item : ComparatorHeapItem<T>| -> T {
+            item.item
+        }).collect()
+    }
 }
 
 impl<T : Clone> Clone for ComparatorHeap<T> {
