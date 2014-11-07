@@ -136,6 +136,15 @@ impl<T> ComparatorHeap<T> {
             heap : BinaryHeap::from_vec(vs)
         }
     }
+
+    /// consumes the ComparatorHeap and returns the underlying
+    /// vector in arbitrary order.
+    pub fn into_vec(self) -> Vec<T> {
+        self.heap.into_vec().
+                into_iter().map(|item : ComparatorHeapItem<T>| -> T {
+            item.item
+        }).collect()
+    }
 }
 
 impl<T : Clone> Clone for ComparatorHeap<T> {
