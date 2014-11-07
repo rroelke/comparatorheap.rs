@@ -120,6 +120,22 @@ impl<T> ComparatorHeap<T> {
     pub fn clear(&mut self) {
         self.heap.clear()
     }
+
+    pub fn from_vec(cmp : fn (&T, &T) -> Ordering,
+                    xs : Vec<T>) -> ComparatorHeap<T> {
+        let mut vs : Vec<ComparatorHeapItem<T>> = Vec::new();
+        for item in xs.into_iter() {
+            vs.push(ComparatorHeapItem {
+                compare : cmp,
+                item : item
+            });
+        };
+
+        ComparatorHeap {
+            compare : cmp,
+            heap : BinaryHeap::from_vec(vs)
+        }
+    }
 }
 
 impl<T : Clone> Clone for ComparatorHeap<T> {
