@@ -1,6 +1,7 @@
 use std::cmp::{Equal, Ordering};
 use std::collections::BinaryHeap;
 
+#[deriving(Clone)]
 struct ComparatorHeapItem<T> {
     compare : fn (&T, &T) -> Ordering,
     item : T
@@ -26,15 +27,8 @@ impl<T> Ord for ComparatorHeapItem<T> {
         self.partial_cmp(other).unwrap()
     }
 }
-impl<T : Clone> Clone for ComparatorHeapItem<T> {
-    fn clone(&self) -> ComparatorHeapItem<T> {
-        ComparatorHeapItem {
-            compare : self.compare,
-            item : self.item.clone()
-        }
-    }
-}
 
+#[deriving(Clone)]
 pub struct ComparatorHeap<T> {
     compare : fn (&T, &T) -> Ordering,
     heap : BinaryHeap<ComparatorHeapItem<T>>
@@ -153,14 +147,5 @@ impl<T> ComparatorHeap<T> {
                 into_iter().map(|item : ComparatorHeapItem<T>| -> T {
             item.item
         }).collect()
-    }
-}
-
-impl<T : Clone> Clone for ComparatorHeap<T> {
-    fn clone(&self) -> ComparatorHeap<T>{
-        ComparatorHeap {
-            compare : self.compare,
-            heap : self.heap.clone()
-        }
     }
 }

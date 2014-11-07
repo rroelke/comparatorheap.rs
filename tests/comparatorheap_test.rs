@@ -45,3 +45,23 @@ fn test_push() {
     assert_eq!(min_heap.pop().unwrap().val, 6);
     assert_eq!(min_heap.pop().unwrap().val, 8);
 }
+
+fn cmp<T : Ord>(a : &T, b : &T) -> Ordering {
+    a.cmp(b)
+}
+#[test]
+fn test_clone() {
+    /* uses max ordering, so this is a max heap */
+    let mut heap : ComparatorHeap<uint> = ComparatorHeap::new(cmp);
+
+    heap.push(5);
+    heap.push(12);
+    heap.push(3);
+    heap.push(7);
+
+    let mut copy = heap.clone();
+    assert_eq!(heap.pop(), Some(12));
+    assert_eq!(copy.pop(), Some(12));
+    assert_eq!(heap.pop(), Some(7));
+    assert_eq!(copy.pop(), Some(7));
+}
